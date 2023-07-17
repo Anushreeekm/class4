@@ -1,4 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react'
+import Comment from '../screen/Comment'
+import ReactPaginate from 'react-paginate'
 
 //API
 const URL = "https://jsonplaceholder.typicode.com"
@@ -13,6 +15,12 @@ const URL = "https://jsonplaceholder.typicode.com"
 function Ex9(props) {
     const [comment,setComments] = useState([])
 
+    // offset data
+    const [offData,setOffData] = useState([])
+    const [start,setStart] = useState(0) // starting offset
+    const end =  start + props.itemPerPage; // ending offset
+    const pCount = Math.ceil(Comment.length / props.itemPerPage ) /* total page count */
+
     // api call in callback hook
     const getComments = useCallback(() => {
         // async method
@@ -21,6 +29,7 @@ function Ex9(props) {
             .then(out => out.json())
             .then(res => {
                 console.log('comments =', res)
+                setComments(res)
             }).catch(err => console.log(err.message))
         }
 
@@ -39,9 +48,16 @@ function Ex9(props) {
                 </div>
             </div>
             <div className="row">
-                <div className="col-md-12">
-                    
-                </div>
+                {
+                    comment && comment.map((item,index) => {
+                        return (
+                            <Comment key={index} {...item} />
+                        )
+                    })
+                }
+            </div>
+            <div className="row">
+                <div className="col-md-12"></div>
             </div>
         </div>
     )
