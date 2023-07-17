@@ -1,25 +1,22 @@
-import logo from './logo.svg';
-import './App.css';
+import React from "react"
+import Ex1 from "./component/Ex1";
+import Ex5 from "./component/Ex5";
+import Ex7 from "./component/Ex7"
+import Ex9 from "./component/Ex9";
 
-function App() {
+/* react hook => method -> dedicated to functional components, function, const arrow, const local */
+
+function App(props) {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="container">
+      <div className="row">
+        <div className="col-md-12 text-center">
+          <h3 className="display-3 text-success">React Hooks</h3>
+        </div>
+      </div>
+      <Ex9 />
     </div>
-  );
+  )
 }
 
 export default App;
