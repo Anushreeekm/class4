@@ -13,13 +13,13 @@ const URL = "https://jsonplaceholder.typicode.com"
 // props => props input can change only when the component is rendered
 
 function Ex9(props) {
-    const [comment,setComments] = useState([])
+    const [comments,setComments] = useState([])
 
     // offset data
     const [offData,setOffData] = useState([])
     const [start,setStart] = useState(0) // starting offset
     const end =  start + props.itemPerPage; // ending offset
-    const pCount = Math.ceil(Comment.length / props.itemPerPage ) /* total page count */
+    const pCount = Math.ceil(comments.length / props.itemPerPage ) /* total page count */
 
     // api call in callback hook
     const getComments = useCallback(() => {
@@ -38,7 +38,8 @@ function Ex9(props) {
 
     useEffect(() => {
         getComments() // callback ref method call
-    },[])
+        setOffData(comments.slice(start,end))
+    },[comments])
 
     return (
         <div className="container">
@@ -49,7 +50,7 @@ function Ex9(props) {
             </div>
             <div className="row">
                 {
-                    comment && comment.map((item,index) => {
+                    comments && comments.map((item,index) => {
                         return (
                             <Comment key={index} {...item} />
                         )
