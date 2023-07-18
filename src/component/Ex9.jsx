@@ -16,7 +16,7 @@ function Ex9(props) {
     const [comments,setComments] = useState([])
 
     // offset data
-    const [offData,setOffData] = useState([])
+    const [offData,setOffData] = useState([]) // 50 itemperpage
     const [start,setStart] = useState(0) // starting offset
     const end =  start + props.itemPerPage; // ending offset
     const pCount = Math.ceil(comments.length / props.itemPerPage ) /* total page count */
@@ -28,7 +28,7 @@ function Ex9(props) {
             fetch(`${URL}/comments`)
             .then(out => out.json())
             .then(res => {
-                console.log('comments =', res)
+               // console.log('comments =', res)
                 setComments(res)
             }).catch(err => console.log(err.message))
         }
@@ -41,6 +41,11 @@ function Ex9(props) {
         setOffData(comments.slice(start,end))
     },[comments])
 
+    // handler to change page item
+    const handleClick = (e) => {
+        console.log('item =', e.selected);
+    }
+
     return (
         <div className="container">
             <div className="row">
@@ -50,7 +55,7 @@ function Ex9(props) {
             </div>
             <div className="row">
                 {
-                    comments && comments.map((item,index) => {
+                    offData && offData.map((item,index) => {
                         return (
                             <Comment key={index} {...item} />
                         )
@@ -58,7 +63,21 @@ function Ex9(props) {
                 }
             </div>
             <div className="row">
-                <div className="col-md-12"></div>
+                <div className="col-md-12">
+                    <ReactPaginate 
+                        pageCount={pCount}
+                        className='pagination'
+                        activeClassName='active'
+                        activeLinkClassName='active'
+                        pageClassName='page-item'
+                        pageLinkClassName='page-link'
+                        previousClassName='page-item'
+                        previousLinkClassName='page-link'
+                        nextClassName='page-item'
+                        nextLinkClassName='page-link'
+                        onPageChange={handleClick}
+                    />
+                </div>
             </div>
         </div>
     )
