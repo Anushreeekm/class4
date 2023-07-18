@@ -43,7 +43,9 @@ function Ex9(props) {
 
     // handler to change page item
     const handleClick = (e) => {
-        console.log('item =', e.selected);
+        console.log('item =', e.selected); // e is event 
+        let noffset = Number( e.selected * props.itemPerPage ) % comments.length;
+        setStart(noffset)
     }
 
     return (
